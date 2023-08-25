@@ -58,7 +58,7 @@ struct Renderable
 int main()
 {
 
-    ECS::Roster r;
+    ECS::World r;
     auto e1 = r.NewEntity();
     r.Assign<Transform>(e1, 1.0f);
 
@@ -105,6 +105,9 @@ int main()
     */
 
     std::cout << "-----" << std::endl;
+
+    if (r.Has<Transform>(e1))
+        std::cout << "e1 has transform" << std::endl;
 
 
     // Destroys entity 'e2' and removes transform from entity 'e3'

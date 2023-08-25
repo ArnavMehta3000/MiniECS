@@ -82,7 +82,7 @@ namespace ECS
 		std::byte* m_data{ nullptr };
 	};
 
-	class Roster
+	class World
 	{
 	private:
 		// Contains the entity's id and component mask
@@ -93,7 +93,7 @@ namespace ECS
 		};
 
 	public:
-		Roster() = default;
+		World() = default;
 
 		[[maybe_unused]] 
 		EntityID NewEntity()
@@ -188,6 +188,12 @@ namespace ECS
 			return nullptr;
 		}
 
+		template <typename T>
+		bool Has(EntityID id)
+		{
+			return !(Get<T>(id) == nullptr);
+		}
+
 
 		std::vector<EntityDesc>& All()
 		{
@@ -204,7 +210,7 @@ namespace ECS
 	class RosterView
 	{
 	public:
-		RosterView(Roster& roster)
+		RosterView(World& roster)
 			:
 			m_rosterPtr(&roster)
 		{
@@ -270,7 +276,7 @@ namespace ECS
 		}
 
 	private:
-		RosterView(Roster& roster, EntityIndex index, ComponentMask mask) 
+		RosterView(World& roster, EntityIndex index, ComponentMask mask) 
 			: 
 			RosterView(roster)
 		{
@@ -288,7 +294,7 @@ namespace ECS
 
 	private:
 		EntityIndex   m_index{ 0 };
-		Roster*       m_rosterPtr{ nullptr };
+		World*       m_rosterPtr{ nullptr };
 		ComponentMask m_componentMask;
 		bool          m_all{ false };
 	};
