@@ -44,7 +44,7 @@ namespace ECS
 		}
 	}
 
-#define INVALID_ENTITY CreateEntityId(EntityIndex(-1), 0)
+#define INVALID_ENTITY ECS::CreateEntityId(EntityIndex(-1), 0)
 
 	template <class T>
 	ComponentID GetId()
